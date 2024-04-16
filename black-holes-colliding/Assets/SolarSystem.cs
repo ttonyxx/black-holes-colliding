@@ -5,7 +5,7 @@ using UnityEngine;
 public class SolarSystem : MonoBehaviour
 {
 
-    readonly float G = 10f;
+    readonly float G = 6f;
 
     GameObject[] celestials;
 
@@ -17,8 +17,8 @@ public class SolarSystem : MonoBehaviour
         // Initialize velocity
         // foreach (GameObject a in celestials) {
         //     a.GetComponent<Rigidbody>().velocity = new Vector3(1f, 0f, 0f);
-        // }
-        celestials[0].GetComponent<Rigidbody>().velocity = new Vector3(1f, 0f, 0f);
+    //}
+    celestials[0].GetComponent<Rigidbody>().velocity = new Vector3(1f, 0f, 0f);
         celestials[1].GetComponent<Rigidbody>().velocity = new Vector3(-1f, 0f, 0f);
     }
 
