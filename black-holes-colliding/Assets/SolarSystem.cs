@@ -5,7 +5,7 @@ using UnityEngine;
 public class SolarSystem : MonoBehaviour
 {
 
-    readonly float G = 6f;
+    float G = 10f;
 
     GameObject[] celestials;
 
@@ -37,8 +37,11 @@ public class SolarSystem : MonoBehaviour
                     float r = Vector3.Distance(a.transform.position, b.transform.position);
 
                     a.GetComponent<Rigidbody>().AddForce((b.transform.position - a.transform.position).normalized * G * (m1 * m2) / (r * r));
+                    
                 }
-            }
+            }//
+            a.GetComponent<Rigidbody>().velocity *= 0.999f;
         }
+        //G += 0.01f;
     }
 }
