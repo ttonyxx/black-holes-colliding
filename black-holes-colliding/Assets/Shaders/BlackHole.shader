@@ -31,7 +31,7 @@ Shader "DotCrossDot/BlackHoleRaymarching"
 			uniform float4 _Position;
 			uniform float4 _Position2;
 			samplerCUBE _SkyCube;
-			uniform StructuredBuffer<float> _Particles;
+			uniform StructuredBuffer<float3> _Particles;
 
 			struct appdata
             {
@@ -52,7 +52,7 @@ Shader "DotCrossDot/BlackHoleRaymarching"
 
 			fixed4 raymarch(float3 ro, float3 rd) {
 
-				int maxstep = 1000;
+				float maxstep = 250;
 				float3 previousPos = ro;
 				float epsilon = 0.01;
 				float stepSize = .05;
@@ -99,6 +99,7 @@ Shader "DotCrossDot/BlackHoleRaymarching"
 
 					// Calculate black hole influence on the final color.
 					blackHoleInfluence = max(step(distanceToSingularity1, _SchwarzschildRadius), step(distanceToSingularity2, _SchwarzschildRadius));
+					maxstep *= (1 - blackHoleInfluence);
 					previousPos = newPos;
 					previousRayDir = newRayDir;
 				}

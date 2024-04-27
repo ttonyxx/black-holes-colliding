@@ -76,10 +76,10 @@ public class OrbitAroundSphere : MonoBehaviour
             float distanceToCenter2 = toCenter2.magnitude;
             Vector3 toCenter2Normalized = toCenter2.normalized;
 
-            Vector3 gravitationalForce2 = toCenter2Normalized * gravityStrength / (distanceToCenter2 * distanceToCenter2) * 0.01f;
+            Vector3 gravitationalForce2 = toCenter2Normalized * gravityStrength / (distanceToCenter2 * distanceToCenter2) * 0.1f;
 
             // Calculate total gravitational force
-            Vector3 totalGravitationalForce = gravitationalForce1;
+            Vector3 totalGravitationalForce = gravitationalForce1 + gravitationalForce2;
 
             // Apply gravitational force to the particle's velocity
             particles[i].velocity += totalGravitationalForce * Time.deltaTime;
