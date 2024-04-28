@@ -76,23 +76,81 @@
 
       <h2>Abstract</h2>
       <p>
-
+        For our final project, we modeled the collision of two black holes in Unity based on the laws of gravity. We simulated how gravitational 
+        forces between two masses rotating around each other lead the black holes to get closer over time, eventually colliding and merging into 
+        a larger black hole. We also implemented a raymarching algorithm in a custom black hole shader to more realistically simulate how light 
+        bends near black holes due to gravitational lensing. We also rendered dust particles that orbit around our black hole and raytraced 
+        off these particles to produce a light circle around our black hole.
       </p>
 
 
       <h2>Technical Approach</h2>
       <p>
-        
+        We built our implementation from scratch, starting with an empty Unity scene. We created two spheres to represent our black 
+        holes.
+      </p>
+      <h4>Gravitational Attraction</h4>
+      <p>
+        Newton's universal law of gravitation states that the gravitational pull between two particles with masses m1 and m2 who are r distance 
+        apart is equal to (G * m1 * m2)/r^2, where G is the gravitational constant. We apply this force to the direction vector between 
+        our two black holes as they rotate around each other to represent the force between the masses, simulating how the black holes 
+        rotate faster as they get closer to each other over time. The results of our simulation can be seen below:
+      </p>
+      <iframe src="https://drive.google.com/file/d/1nvpejoHcOGIVZKwPmg9YD5g8FCFH7D_Q/preview" width="640" height="480" allow="autoplay"></iframe>
+
+      <h4>Raymarching</h4>
+      <p>
+        We developed a custom shader that we applied to our black holes to model the effects of gravitational lensing using raymarching.
+        Gravitational lensing describes how light can bend near black holes instead of traveling in a straight line as they are pulled by
+        the strong gravitational fields surrounding black holes, leading the area around a black hole to look distorted or warped. 
+        Thus, raymarching is needed to simulate the curvature of light across spacetime as traditional raytracing algorithms 
+        like the one we learned about in class assume that light rays travel in a straight line between surfaces.
+      </p>
+      <p>
+        In our custom shader, we shoot out rays from the camera. If the ray's final position is within the event horizon of a black 
+        hole, that means it gets captured by the black hole, so the background color will be black. Otherwise, we sample the SkyBox/background 
+        to get the final background color.
+      </p>
+
+      <h4>Dust Particles</h4>
+      <p>
+        We used Unity's ParticleSystem component to create our dust particles, which emits a user-specified amount of particles. 
+        For each particle, we set its starting position to be a random distance away from the center of a black hole.
+      </p>
+      <p>
+        Over time, we update the particle's velocity based on the gravitational force between it and the center of the 
+        black holes.
       </p>
 
       <h4>Challenges</h4>
       <p>
-
+        We used Unity for our project, which no one on our team had much experience with. Thus, our initial challenges 
+        came from setting up our development environment and understanding how to write scripts to control different
+        components as we were not familiar with how Unity worked. We tackled this problem by following along with 
+        some beginner Unity tutorials to gain more experience with the different features Unity has, such as how to add our own 
+        shaders and how to write scripts to control how components act in the world and how they interact with other objects 
+        in the world.
+      </p>
+      <p>
+        Another challenge we encountered was implementing our raytracing algorithm in our custom shader. We had some trouble 
+        figuring out the proper physics and math used in raytracing, such as what values we should be lerping between. 
+        We tackled this problem by researching and following along with some raymarching tutorials online.
       </p>
 
       <h4>Lessons Learned</h4>
       <p>
-
+        In our proposal, we discussed wanting to accurately model the physics behind black hole collisions and the bending of light. However, 
+        we learned that usually estimations can provide good enough results that still look pretty realistic. For example, in our shader, instead 
+        of formulating the exact precise equation to calculate how light bends, we used an approximation based on the distance
+        to the center of the black hole. We found that the warping effect still looks pretty realistic even though we used approximations.
+      </p>
+      <p>
+        Another lesson we learned is how to apply what we learned in class to improve our simulation. For example, 
+        we learned how to implement a BVH-like optimization in our raymarching where if a ray did not intersect with the 
+        bounding box around the two black holes, we knew we could immediately sample the SkyBox/background to get the final 
+        color since we knew that ray would not fall within the event horizon of the black holes and be 
+        captured by the black hole. Thus, we found it rewarding being able to apply and integrate concepts we learned throughout 
+        the semester in our final project to improve upon on renderings.
       </p>
 
       <h2>Results</h2>
@@ -101,9 +159,9 @@
       </p>
 
       <h2>References</h2>
-      <p>
+      <p>"Gravitational Waveforms from Inspiralling Compact Binaries to Second Post-Newtonian Order" by L. Blanchet et al.</p>
 
-      </p>
+      <p>"Gravitation" by Charles W. Misner, Kip S. Thorne, and John Archibald Wheeler.</p>
 
       <h2>Contributions</h2>
       <p>
