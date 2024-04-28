@@ -107,9 +107,27 @@
         like the one we learned about in class assume that light rays travel in a straight line between surfaces.
       </p>
       <p>
-        In our custom shader, we shoot out rays from the camera. If the ray's final position is within the event horizon of a black 
-        hole, that means it gets captured by the black hole, so the background color will be black. Otherwise, we sample the SkyBox/background 
-        to get the final background color.
+        In our custom shader, we shoot out rays from the camera.
+        During each step, we obtain 3 vectors: (1) the current direction of the ray (forwardDir), (2) the vector between the 
+        current position and the center of the first black hole (toBH1), and (3) the vector between the current position and 
+        the center of the second black hole (toBH2). We normalize each vector and scale it by our step size.
+      </p>
+      <p>
+        Next, we use the distance between the current ray to each of the black holes to compute an approximation for the amount 
+        of light that gets bent. Using the distance to the black hole is a useful approximation because it tells us whether the 
+        ray falls within the event horizon of the black hole, which informs whether the final color of the pixel is affected 
+        by the black hole as rays that fall within the event horizon are unable to escape, which means the final color should 
+        be black. We then linearly interpolate between forwardDir, toBH1, and this approximated value, obtaining a new vector 
+        L1. Then we perform the same linear interpolation but for toBH2, obtaining vector L2. 
+        To compute the direction of the new ray, we lerp(L1, L2, (dist to black hole 1)/(dist to black hole 1 + dist to black hole 2)), 
+        then compute the ray's new position by adding this direction vector to its current position. 
+      </p>
+      <p>
+        Next, we compute how big of an affect the black hole has on the pixel's final color based on how close the ray 
+        is to the center of each black hole. The final color is determined by lerping between the color of the SkyBox/background
+        at the ray's position, the color of the black hole, and how big of an affect the black hole has on the final color.
+        Generally, if the ray's final position is within the event horizon of a black hole, that means it gets captured by the black hole, 
+        so the final color should be closer to black. Otherwise, the final color should be closer to the SkyBox's color.
       </p>
 
       <h4>Dust Particles</h4>
@@ -132,8 +150,8 @@
         in the world.
       </p>
       <p>
-        Another challenge we encountered was implementing our raytracing algorithm in our custom shader. We had some trouble 
-        figuring out the proper physics and math used in raytracing, such as what values we should be lerping between. 
+        Another challenge we encountered was implementing our raymarching algorithm in our custom shader. We had some trouble 
+        figuring out the proper physics and math used in raymarching, such as what values we should be lerping between. 
         We tackled this problem by researching and following along with some raymarching tutorials online.
       </p>
 
@@ -146,8 +164,8 @@
       </p>
       <p>
         Another lesson we learned is how to apply what we learned in class to improve our simulation. For example, 
-        we learned how to implement a BVH-like optimization in our raymarching where if a ray did not intersect with the 
-        bounding box around the two black holes, we knew we could immediately sample the SkyBox/background to get the final 
+        we learned how to implement a BVH-like optimization in our raymarching algorithm where if a ray did not intersect with the 
+        bounding box around the two black holes, we knew we could immediately sample the SkyBox to get the final background
         color since we knew that ray would not fall within the event horizon of the black holes and be 
         captured by the black hole. Thus, we found it rewarding being able to apply and integrate concepts we learned throughout 
         the semester in our final project to improve upon on renderings.
