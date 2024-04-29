@@ -96,7 +96,7 @@
         our two black holes as they rotate around each other to represent the force between the masses, simulating how the black holes 
         rotate faster as they get closer to each other over time. The results of our simulation can be seen below:
       </p>
-      <iframe src="https://drive.google.com/file/d/1nvpejoHcOGIVZKwPmg9YD5g8FCFH7D_Q/preview" width="640" height="480" allow="autoplay"></iframe>
+      <iframe src="https://drive.google.com/file/d/1nvpejoHcOGIVZKwPmg9YD5g8FCFH7D_Q/preview" width="640" height="440" allow="autoplay"></iframe>
 
       <h4>Raymarching</h4>
       <p>
@@ -132,6 +132,8 @@
         Generally, if the ray's final position is within the event horizon of a black hole, that means it gets captured by the black hole, 
         so the final color should be closer to black. Otherwise, the final color should be closer to the SkyBox's color.
       </p>
+      <p>In summary, our raymarching approach looks like:</p>
+      <img src="images/raymarching-approach.png" width="500px" />
 
       <h4>Dust Particles</h4>
       <p>
@@ -184,13 +186,23 @@
 
       <h2>Results</h2>
       <p>
-
+        Below are the results of our custom black hole shader and raymarching algorithm. We can see how the region around the two black 
+        holes looks warped as we account for the effects of gravitational lensing.
       </p>
+      <img src="images/bh-shader-result.png" width="500px" />
+      <p>
+        The following video shows our gravity simulation and collision. The black holes rotate around each other, moving faster as they get closer,
+        then eventually colliding and merging into a larger black hole. We also notice how the area surrounding the black holes gets warped 
+        as they move around each other, showing our raymarching algorithm and custom shader at play as the collision takes place.
+      </p>
+      <iframe src="https://drive.google.com/file/d/1esM1UALTKXfbMyCoH1QaLBflNha3MQIR/preview" width="600" height="380" allow="autoplay"></iframe>
 
       <h2>References</h2>
+      We reference the following papers to better understand the physics behind black hole collisions:
       <p>"Gravitational Waveforms from Inspiralling Compact Binaries to Second Post-Newtonian Order" by L. Blanchet et al.</p>
 
       <p>"Gravitation" by Charles W. Misner, Kip S. Thorne, and John Archibald Wheeler.</p>
+      We used the following site to better understand how to implement our raymarching algorithm:
       <p>https://medium.com/dotcrossdot/raymarching-simulating-a-black-hole-53624a3684d3</p>
 
       <h2>Contributions</h2>
