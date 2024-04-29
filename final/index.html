@@ -106,6 +106,9 @@
         Thus, raymarching is needed to simulate the curvature of light across spacetime as traditional raytracing algorithms 
         like the one we learned about in class assume that light rays travel in a straight line between surfaces.
       </p>
+      <p>While ray tracing creates a ray and computes its intersection with the scene, ray marching simply steps the ray forward into the scene in tiny increments.
+        This is necessary for the nonlinear traversal of rays through the scene.
+      </p>
       <p>
         In our custom shader, we shoot out rays from the camera.
         During each step, we obtain 3 vectors: (1) the current direction of the ray (forwardDir), (2) the vector between the 
@@ -155,12 +158,20 @@
         We tackled this problem by researching and following along with some raymarching tutorials online.
       </p>
 
+      <p>Finally, Unity does not support ray marching/tracing by default, at least in the configuration we were using.
+        To resolve this, we placed a flat object in front of the camera and wrote a shader for the object that implemented our
+        ray marching algorithm. This ended up producing great results!
+      </p>
+
       <h4>Lessons Learned</h4>
       <p>
         In our proposal, we discussed wanting to accurately model the physics behind black hole collisions and the bending of light. However, 
         we learned that usually estimations can provide good enough results that still look pretty realistic. For example, in our shader, instead 
         of formulating the exact precise equation to calculate how light bends, we used an approximation based on the distance
         to the center of the black hole. We found that the warping effect still looks pretty realistic even though we used approximations.
+      </p>
+      <p>We also learned that, for something as amorphous as a black hole, it's more important to create something that looks visually pleasing
+        than something that is physically accurate. Doing so reduces complexity and leads to a better result.
       </p>
       <p>
         Another lesson we learned is how to apply what we learned in class to improve our simulation. For example, 
@@ -180,6 +191,7 @@
       <p>"Gravitational Waveforms from Inspiralling Compact Binaries to Second Post-Newtonian Order" by L. Blanchet et al.</p>
 
       <p>"Gravitation" by Charles W. Misner, Kip S. Thorne, and John Archibald Wheeler.</p>
+      <p>https://medium.com/dotcrossdot/raymarching-simulating-a-black-hole-53624a3684d3</p>
 
       <h2>Contributions</h2>
       <p>
