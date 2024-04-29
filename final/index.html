@@ -113,18 +113,18 @@
       </p>
       <p>
         In our custom shader, we shoot out rays from the camera.
-        During each step, we obtain 3 vectors: (1) the current direction of the ray (forwardDir), (2) the vector between the 
-        current position and the center of the first black hole (toBH1), and (3) the vector between the current position and 
-        the center of the second black hole (toBH2). We normalize each vector and scale it by our step size.
+        During each step, we obtain 3 vectors: (1) the current direction of the ray (v), (2) the vector between the 
+        current position and the center of the first black hole (h1), and (3) the vector between the current position and 
+        the center of the second black hole (h2). We normalize each vector and scale it by our step size.
       </p>
       <p>
         Next, we use the distance between the current ray to each of the black holes to compute an approximation for the amount 
         of light that gets bent. Using the distance to the black hole is a useful approximation because it tells us whether the 
         ray falls within the event horizon of the black hole, which informs whether the final color of the pixel is affected 
         by the black hole as rays that fall within the event horizon are unable to escape, which means the final color should 
-        be black. We then linearly interpolate between forwardDir, toBH1, and this approximated value, obtaining a new vector 
-        L1. Then we perform the same linear interpolation but for toBH2, obtaining vector L2. 
-        To compute the direction of the new ray, we lerp(L1, L2, (dist to black hole 1)/(dist to black hole 1 + dist to black hole 2)), 
+        be black. We then linearly interpolate between v, h1, and this approximated value, obtaining a new vector 
+        v1. Then we perform the same linear interpolation but for h2, obtaining vector v2. 
+        To compute the direction of the new ray, we lerp(v1, v2, (dist to black hole 1)/(dist to black hole 1 + dist to black hole 2)), 
         then compute the ray's new position by adding this direction vector to its current position. 
       </p>
       <p>
@@ -183,10 +183,16 @@
         bounding box around the two black holes, we knew we could immediately sample the SkyBox to get the final background
         color since we knew that ray would not fall within the event horizon of the black holes and be 
         captured by the black hole. Thus, we found it rewarding being able to apply and integrate concepts we learned throughout 
-        the semester in our final project to improve upon on renderings.
+        the semester in our final project to improve upon ours renderings.
       </p>
 
       <h2>Results</h2>
+      <p>
+        The following videos show our gravity simulation and collision. The black holes rotate around each other, moving faster as they get closer,
+        then eventually colliding and merging into a larger black hole. We can see how the region around the two black holes looks warped as we 
+        account for the effects of gravitational lensing using raymarching. We also notice how the area surrounding the black holes gets warped 
+        as they move around each other, showing our raymarching algorithm and custom shader at play as the collision takes place.
+      </p>
         <video width="320" height="240" controls>
           <source src="assets/tester.mov" type="video/mp4">
         </video>
@@ -202,16 +208,6 @@
         <video width="320" height="240" controls>
           <source src="assets/fifth.mov" type="video/mp4">
         </video>
-        <p>
-        Below are the results of our custom black hole shader and raymarching algorithm. We can see how the region around the two black 
-        holes looks warped as we account for the effects of gravitational lensing.
-      </p>
-      <img src="images/bh-shader-result.png" width="500px" />
-      <p>
-        The following video shows our gravity simulation and collision. The black holes rotate around each other, moving faster as they get closer,
-        then eventually colliding and merging into a larger black hole. We also notice how the area surrounding the black holes gets warped 
-        as they move around each other, showing our raymarching algorithm and custom shader at play as the collision takes place.
-      </p>
       <iframe src="https://drive.google.com/file/d/1esM1UALTKXfbMyCoH1QaLBflNha3MQIR/preview" width="600" height="380" allow="autoplay"></iframe>
 
       <h2>References</h2>
